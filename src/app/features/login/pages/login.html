@@ -6,7 +6,12 @@
 
             <form class="space-y-6" (submit)="onSubmit($event)">
                 @if (loginService.errorMessage()) {
-                    <div class="rounded border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200" role="alert" aria-live="polite">
+                    <div
+                        class="rounded border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
+                        role="alert"
+                        aria-live="polite"
+                        data-testid="login-api-error"
+                    >
                         {{ loginService.errorMessage() }}
                     </div>
                 }
@@ -22,7 +27,7 @@
                     />
 
                     @if ( LoginModelForm.username().touched() && LoginModelForm.username().invalid() ){
-                        <div class="mt-2 space-y-1" role="alert" aria-live="polite">
+                        <div class="mt-2 space-y-1" role="alert" aria-live="polite" data-testid="username-errors">
                             @for (error of LoginModelForm.username().errors(); track error) {
                                 <div class="flex items-start text-sm text-red-400">
                                     <svg class="w-4 h-4 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -48,7 +53,7 @@
 
 
                     @if (LoginModelForm.password().touched() && LoginModelForm.password().invalid()){
-                        <div class="mt-2 space-y-1" role="alert" aria-live="polite">
+                        <div class="mt-2 space-y-1" role="alert" aria-live="polite" data-testid="password-errors">
                             @for (error of LoginModelForm.password().errors(); track error) {
                                 <div class="flex items-start text-sm text-red-400">
                                     <svg class="w-4 h-4 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
