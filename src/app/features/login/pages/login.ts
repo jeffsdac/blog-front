@@ -1,11 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { ILoginDTO } from '../models/ilogin-dto';
-import { form, required, min, minLength, maxLength, FormField } from '@angular/forms/signals';
+import { form, required, minLength, maxLength, FormField } from '@angular/forms/signals';
 import { LoginService } from '../service/login.service';
+import { Username } from '../../../shared/formsfield/username/username';
+import { Password } from '../../../shared/formsfield/password/password';
+import { Statusmessage } from '../../../shared/statusmessage/statusmessage';
 
 @Component({
   selector: 'app-login',
-  imports: [FormField],
+  imports: [Username, Password, Statusmessage],
   templateUrl: './login.html',
 })
 export class Login {

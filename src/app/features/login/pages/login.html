@@ -6,74 +6,26 @@
 
             <form class="space-y-6" (submit)="onSubmit($event)">
                 @if (loginService.status() === "error") {
-                    <div
-                        class="rounded border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
-                        role="alert"
-                        aria-live="polite"
-                        data-testid="login-api-error"
-                    >
-                        {{ loginService.errorMessage() }}
-                    </div>
+                    <app-statusmessage
+                        [message]="loginService.errorMessage()"
+                        status="error"
+                    />
                 }
 
                 @if (loginService.status() === "success"){
-                    <div 
-                        class="rounded border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm text-green-200"
-                    >
-                        Login efetuado com sucesso
-                    </div>
+                    <app-statusmessage
+                        message="Conectado com sucesso"
+                        status="success"
+                    />
                 }
 
-                <div>
-                    <label for="username" class="block text-sm text-gray-300 mb-2">Username</label>
-                    <input
-                        [formField]="LoginModelForm.username"
-                        type="text"
-                        id="username"
-                        placeholder="JoaoSilva123"
-                        class="w-full h-12 px-4 rounded bg-white/10 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 border border-transparent"
-                    />
+                <app-username
+                    [loginField]="LoginModelForm.username"
+                />
 
-                    @if ( LoginModelForm.username().touched() && LoginModelForm.username().invalid() ){
-                        <div class="mt-2 space-y-1" role="alert" aria-live="polite" data-testid="username-errors">
-                            @for (error of LoginModelForm.username().errors(); track $index) {
-                                <div class="flex items-start text-sm text-red-400">
-                                    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8-3a1 1 0 00-.993.883L9 8v4a1 1 0 001.993.117L11 12V8a1 1 0 00-1-1zm0 8a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" clip-rule="evenodd" />
-                                    </svg>
-                                    <p class="leading-tight">{{ error.message }}</p>
-                                </div>
-                            }
-                        </div>
-                    }
-
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm text-gray-300 mb-2">Senha</label>
-                    <input
-                        [formField]="LoginModelForm.password"
-                        type="password"
-                        id="password"
-                        placeholder="******"
-                        class="w-full h-12 px-4 rounded bg-white/10 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 border border-transparent"
-                    />
-
-
-                    @if (LoginModelForm.password().touched() && LoginModelForm.password().invalid()){
-                        <div class="mt-2 space-y-1" role="alert" aria-live="polite" data-testid="password-errors">
-                            @for (error of LoginModelForm.password().errors(); track $index) {
-                                <div class="flex items-start text-sm text-red-400">
-                                    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8-3a1 1 0 00-.993.883L9 8v4a1 1 0 001.993.117L11 12V8a1 1 0 00-1-1zm0 8a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" clip-rule="evenodd" />
-                                    </svg>
-                                    <p class="leading-tight">{{ error.message }}</p>
-                                </div>
-                            }
-                        </div>
-                    }
-
-                </div>
+                <app-password
+                    [passwordField]="LoginModelForm.password"
+                />
 
                 <div class="flex flex-col space-y-2 text-sm text-gray-300">
                     <a href="#" class="hover:underline">Esqueci minha senha</a>
