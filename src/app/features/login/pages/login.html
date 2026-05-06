@@ -4,7 +4,7 @@
         <div class="w-full max-w-md px-8 py-12 text-white">
             <h1 class="text-4xl font-light mb-10">Login</h1>
 
-            <form class="space-y-6" (submit)="onSubmit($event)">
+            <form class="flex flex-col gap-4" (submit)="onSubmit($event)">
                 @if (loginService.status() === "error") {
                     <app-statusmessage
                         [message]="loginService.errorMessage()"
