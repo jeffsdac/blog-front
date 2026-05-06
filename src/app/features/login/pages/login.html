@@ -5,7 +5,7 @@
             <h1 class="text-4xl font-light mb-10">Login</h1>
 
             <form class="space-y-6" (submit)="onSubmit($event)">
-                @if (loginService.errorMessage()) {
+                @if (loginService.status() === "error") {
                     <div
                         class="rounded border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
                         role="alert"
@@ -13,6 +13,14 @@
                         data-testid="login-api-error"
                     >
                         {{ loginService.errorMessage() }}
+                    </div>
+                }
+
+                @if (loginService.status() === "success"){
+                    <div 
+                        class="rounded border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm text-green-200"
+                    >
+                        Login efetuado com sucesso
                     </div>
                 }
 
@@ -71,6 +79,13 @@
                     <a href="#" class="hover:underline">Esqueci minha senha</a>
                     <p class="text-gray-300">Não tem conta? <a href="#" class="text-pink-400 hover:underline">Cadastre-se</a></p>
                 </div>
+                
+                @if (loginService.status() === "loading") {
+                    <div class="flex items-center space-x-3 text-sm text-gray-300" role="status" aria-live="polite">
+                        <div class="w-6 h-6 border-4 border-gray-600 border-t-pink-500 rounded-full animate-spin" aria-hidden="true"></div>
+                        <span>Carregando...</span>
+                    </div>
+                }
 
                 <button type="submit"
                     class="w-full bg-pink-600 hover:bg-pink-700 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white py-3 rounded mt-6 tracking-widest transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-pink-500"
