@@ -58,7 +58,7 @@ export class LoginService {
 
   private formatError(err: unknown): string {
     if (err instanceof HttpErrorResponse) {
-      if (err.status === 0) return 'Falha de rede ao conectar na API.';
+      if (err.status === 0) return 'Falha de conexão';
       if (err.status === 403) return 'Usuário ou senha inválidos.';
       return `Erro ao autenticar (HTTP ${err.status}).`;
     }

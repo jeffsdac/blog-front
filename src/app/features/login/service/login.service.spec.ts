@@ -95,7 +95,7 @@ describe('LoginService', () => {
     service.doLogin({ username: 'user', password: 'password1234' });
 
     expect(service.status()).toBe('error');
-    expect(service.errorMessage()).toBe('Falha de rede ao conectar na API.');
+    expect(service.errorMessage()).toBe('Falha de conexão');
   });
 
   it('returns generic HTTP message for unexpected status codes', () => {
