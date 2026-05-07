@@ -181,4 +181,35 @@ describe('Register', () => {
       expect(component.registerModelForm.username().invalid()).toBe(false);
     });
   });
+
+  it('calls register api when submitting a valid form', async () => {
+    const emailInput = queryEmailInput();
+    const usernameInput = queryUsernameInput();
+    const passwordInput = queryPasswordInput();
+    const confirmedPasswordInput = queryConfirmedPasswordInput();
+    expect(emailInput).toBeTruthy();
+    expect(usernameInput).toBeTruthy();
+    expect(passwordInput).toBeTruthy();
+    expect(confirmedPasswordInput).toBeTruthy();
+
+    await setValueAndBlur(emailInput!, 'user@example.com');
+    await setValueAndBlur(usernameInput!, 'usuario123');
+    await setValueAndBlur(passwordInput!, 'password1234');
+    await setValueAndBlur(confirmedPasswordInput!, 'password1234');
+
+    const form = fixture.nativeElement.querySelector('[data-testid="register-form"]') as HTMLFormElement | null;
+    expect(form).toBeTruthy();
+
+    form!.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(registerApiMock).toHaveBeenCalledTimes(1);
+    expect(registerApiMock.mock.calls[0]?.[0]).toMatchObject({
+      email: 'user@example.com',
+      username: 'usuario123',
+      password: 'password1234',
+      confirmedPassword: 'password1234',
+    });
+  });
 });
