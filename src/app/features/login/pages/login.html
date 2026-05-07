@@ -21,6 +21,7 @@
 
     <app-password
         [passwordField]="LoginModelForm.password"
+        inputId="password"
     />
 
     <div class="flex flex-col space-y-2 text-sm text-gray-300">
@@ -43,4 +44,3 @@
         [disabled]="LoginModelForm().invalid() || loginService.isLoading()"
     >ENTRAR</button>
 </form>
-

@@ -9,6 +9,7 @@ import { FieldTree, FormField } from '@angular/forms/signals';
 export class Password {
 
   @Input({ required: true }) passwordField! : FieldTree<string, string>;
-  @Input() label : string = "Senha"
+  @Input() label : string = "Senha";
+  @Input() inputId: string = 'password';
 
 }
