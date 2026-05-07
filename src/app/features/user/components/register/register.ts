@@ -1,10 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Username } from '../../../../shared/formsfield/username/username';
 import { Password } from '../../../../shared/formsfield/password/password';
 import { IRegisterUserDTO } from '../../model/iregister-user-dto';
 import { email, form, maxLength, minLength, required, validate } from '@angular/forms/signals';
 import { Email } from '../../../../shared/formsfield/email/email';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RegisterUserService } from '../../service/register-user-service';
 import { Statusmessage } from '../../../../shared/statusmessage/statusmessage';
 
@@ -15,6 +15,8 @@ import { Statusmessage } from '../../../../shared/statusmessage/statusmessage';
 })
 export class Register {
   protected readonly registerUserService = inject(RegisterUserService);
+  private readonly router = inject(Router);
+  private readonly hasRedirected = signal(false);
 
   registerModel = signal<IRegisterUserDTO>({
     email: "",
@@ -56,6 +58,16 @@ export class Register {
   onSubmit ( event: Event ) : void {
     event.preventDefault();
     this.registerUserService.register(this.registerModel());
+  }
+
+  constructor() {
+    effect(() => {
+      if (this.hasRedirected()) return;
+      if (this.registerUserService.status() === 'success') {
+        this.hasRedirected.set(true);
+        void this.router.navigateByUrl('/');
+      }
+    });
   }
 
 }

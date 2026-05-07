@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ILoginDTO } from '../models/ilogin-dto';
 import { form, required, minLength, maxLength, FormField } from '@angular/forms/signals';
 import { LoginService } from '../service/login.service';
@@ -6,6 +6,7 @@ import { Username } from '../../../shared/formsfield/username/username';
 import { Password } from '../../../shared/formsfield/password/password';
 import { Statusmessage } from '../../../shared/statusmessage/statusmessage';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import { RouterLink } from '@angular/router';
 })
 export class Login {
   protected readonly loginService = inject(LoginService);
+  private readonly router = inject(Router);
+  private readonly hasRedirected = signal(false);
 
   loginModel = signal<ILoginDTO>({
     username: '',
@@ -35,4 +38,13 @@ export class Login {
     this.loginService.doLogin(this.loginModel());
   }
 
+  constructor() {
+    effect(() => {
+      if (this.hasRedirected()) return;
+      if (this.loginService.status() === 'success') {
+        this.hasRedirected.set(true);
+        void this.router.navigateByUrl('/');
+      }
+    });
+  }
 }
