@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { EMPTY, defer } from 'rxjs';
 import { vi, type MockedFunction } from 'vitest';
 import { ILoginDTO } from '../models/ilogin-dto';
@@ -17,6 +18,7 @@ describe('Login', () => {
     await TestBed.configureTestingModule({
       imports: [Login],
       providers: [
+        provideRouter([]),
         {
           provide: LoginApiService,
           useValue: {

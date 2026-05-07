@@ -5,10 +5,11 @@ import { LoginService } from '../service/login.service';
 import { Username } from '../../../shared/formsfield/username/username';
 import { Password } from '../../../shared/formsfield/password/password';
 import { Statusmessage } from '../../../shared/statusmessage/statusmessage';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [Username, Password, Statusmessage],
+  imports: [Username, Password, Statusmessage, RouterLink],
   templateUrl: './login.html',
 })
 export class Login {

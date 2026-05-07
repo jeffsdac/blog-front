@@ -1,54 +1,46 @@
-<main class="min-h-screen flex bg-gray-900">
+<h1 class="text-4xl font-light mb-10">Login</h1>
 
-    <section class="w-full md:w-1/2 flex items-center justify-center bg-black/70">
-        <div class="w-full max-w-md px-8 py-12 text-white">
-            <h1 class="text-4xl font-light mb-10">Login</h1>
+<form class="flex flex-col gap-4" (submit)="onSubmit($event)">
+    @if (loginService.status() === "error") {
+        <app-statusmessage
+            [message]="loginService.errorMessage()"
+            status="error"
+        />
+    }
 
-            <form class="flex flex-col gap-4" (submit)="onSubmit($event)">
-                @if (loginService.status() === "error") {
-                    <app-statusmessage
-                        [message]="loginService.errorMessage()"
-                        status="error"
-                    />
-                }
+    @if (loginService.status() === "success"){
+        <app-statusmessage
+            message="Conectado com sucesso"
+            status="success"
+        />
+    }
 
-                @if (loginService.status() === "success"){
-                    <app-statusmessage
-                        message="Conectado com sucesso"
-                        status="success"
-                    />
-                }
+    <app-username
+        [loginField]="LoginModelForm.username"
+    />
 
-                <app-username
-                    [loginField]="LoginModelForm.username"
-                />
+    <app-password
+        [passwordField]="LoginModelForm.password"
+    />
 
-                <app-password
-                    [passwordField]="LoginModelForm.password"
-                />
-
-                <div class="flex flex-col space-y-2 text-sm text-gray-300">
-                    <a href="#" class="hover:underline">Esqueci minha senha</a>
-                    <p class="text-gray-300">Não tem conta? <a href="#" class="text-pink-400 hover:underline">Cadastre-se</a></p>
-                </div>
-                
-                @if (loginService.status() === "loading") {
-                    <div class="flex items-center space-x-3 text-sm text-gray-300" role="status" aria-live="polite">
-                        <div class="w-6 h-6 border-4 border-gray-600 border-t-pink-500 rounded-full animate-spin" aria-hidden="true"></div>
-                        <span>Carregando...</span>
-                    </div>
-                }
-
-                <button type="submit"
-                    class="w-full bg-pink-600 hover:bg-pink-700 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white py-3 rounded mt-6 tracking-widest transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                    [disabled]="LoginModelForm().invalid() || loginService.isLoading()"
-                >ENTRAR</button>
-            </form>
-        </div>
-    </section>
-
-    <div class="hidden md:block md:w-1/2 bg-cover bg-center">
-        <div class="w-full h-full bg-gradient-to-l from-transparent to-black/60"></div>
+    <div class="flex flex-col space-y-2 text-sm text-gray-300">
+        <a href="#" class="hover:underline">Esqueci minha senha</a>
+        <p class="text-gray-300">
+            Não tem conta?
+            <a routerLink="/register" class="text-pink-400 hover:underline">Cadastre-se</a>
+        </p>
     </div>
-    
-</main>
+
+    @if (loginService.status() === "loading") {
+        <div class="flex items-center space-x-3 text-sm text-gray-300" role="status" aria-live="polite">
+            <div class="w-6 h-6 border-4 border-gray-600 border-t-pink-500 rounded-full animate-spin" aria-hidden="true"></div>
+            <span>Carregando...</span>
+        </div>
+    }
+
+    <button type="submit"
+        class="w-full bg-pink-600 hover:bg-pink-700 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white py-3 rounded mt-6 tracking-widest transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        [disabled]="LoginModelForm().invalid() || loginService.isLoading()"
+    >ENTRAR</button>
+</form>
+

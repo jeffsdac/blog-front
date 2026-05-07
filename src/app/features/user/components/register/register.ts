@@ -4,10 +4,11 @@ import { Password } from '../../../../shared/formsfield/password/password';
 import { IRegisterUserDTO } from '../../model/iregister-user-dto';
 import { email, form, maxLength, minLength, required, validate } from '@angular/forms/signals';
 import { Email } from '../../../../shared/formsfield/email/email';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  imports: [Username, Password, Email],
+  imports: [Username, Password, Email, RouterLink],
   templateUrl: './register.html',
 })
 export class Register {
