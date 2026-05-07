@@ -9,7 +9,7 @@ export class LoginApiService {
   private readonly apiBaseUrl = "http://localhost:8080/";
 
   doLogin(login: ILoginDTO): Observable<ILoginDTO> {
-    const url = new URL('api/v1/user', this.apiBaseUrl).toString();
+    const url = new URL('api/v1/user/login', this.apiBaseUrl).toString();
     return this.http.post<ILoginDTO>(url, login);
   }
 }
