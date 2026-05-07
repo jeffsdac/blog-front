@@ -1,22 +1,36 @@
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { form, required } from '@angular/forms/signals';
 
 import { Password } from './password';
 
+@Component({
+  imports: [Password],
+  template: `<app-password [passwordField]="passwordForm.password" label="Senha" inputId="password" />`,
+})
+class PasswordHost {
+  private readonly model = signal({ password: '' });
+
+  protected readonly passwordForm = form(this.model, (schemaPath) => {
+    required(schemaPath.password);
+  });
+}
+
 describe('Password', () => {
-  let component: Password;
-  let fixture: ComponentFixture<Password>;
+  let fixture: ComponentFixture<PasswordHost>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Password],
+      imports: [PasswordHost],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Password);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(PasswordHost);
     await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
+

@@ -1,22 +1,36 @@
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { form, required } from '@angular/forms/signals';
 
 import { Username } from './username';
 
+@Component({
+  imports: [Username],
+  template: `<app-username [loginField]="usernameForm.username" />`,
+})
+class UsernameHost {
+  private readonly model = signal({ username: '' });
+
+  protected readonly usernameForm = form(this.model, (schemaPath) => {
+    required(schemaPath.username);
+  });
+}
+
 describe('Username', () => {
-  let component: Username;
-  let fixture: ComponentFixture<Username>;
+  let fixture: ComponentFixture<UsernameHost>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Username],
+      imports: [UsernameHost],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Username);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(UsernameHost);
     await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
+

@@ -1,22 +1,36 @@
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { form, required } from '@angular/forms/signals';
 
 import { Email } from './email';
 
+@Component({
+  imports: [Email],
+  template: `<app-email [emailField]="emailForm.email" />`,
+})
+class EmailHost {
+  private readonly model = signal({ email: '' });
+
+  protected readonly emailForm = form(this.model, (schemaPath) => {
+    required(schemaPath.email);
+  });
+}
+
 describe('Email', () => {
-  let component: Email;
-  let fixture: ComponentFixture<Email>;
+  let fixture: ComponentFixture<EmailHost>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Email],
+      imports: [EmailHost],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Email);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(EmailHost);
     await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
+
