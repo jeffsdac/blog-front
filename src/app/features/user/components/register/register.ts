@@ -1,17 +1,20 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Username } from '../../../../shared/formsfield/username/username';
 import { Password } from '../../../../shared/formsfield/password/password';
 import { IRegisterUserDTO } from '../../model/iregister-user-dto';
 import { email, form, maxLength, minLength, required, validate } from '@angular/forms/signals';
 import { Email } from '../../../../shared/formsfield/email/email';
 import { RouterLink } from '@angular/router';
+import { RegisterUserService } from '../../service/register-user-service';
+import { Statusmessage } from '../../../../shared/statusmessage/statusmessage';
 
 @Component({
   selector: 'app-register',
-  imports: [Username, Password, Email, RouterLink],
+  imports: [Username, Password, Email, RouterLink, Statusmessage],
   templateUrl: './register.html',
 })
 export class Register {
+  protected readonly registerUserService = inject(RegisterUserService);
 
   registerModel = signal<IRegisterUserDTO>({
     email: "",
@@ -52,6 +55,7 @@ export class Register {
 
   onSubmit ( event: Event ) : void {
     event.preventDefault();
+    this.registerUserService.register(this.registerModel());
   }
 
 }

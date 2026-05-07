@@ -1,16 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { EMPTY } from 'rxjs';
+import { vi, type MockedFunction } from 'vitest';
 
 import { Register } from './register';
+import { RegisterUserApiService } from '../../service/register-user-api.service';
 
 describe('Register', () => {
   let component: Register;
   let fixture: ComponentFixture<Register>;
+  let registerApiMock: MockedFunction<RegisterUserApiService['register']>;
 
   beforeEach(async () => {
+    registerApiMock = vi.fn().mockReturnValue(EMPTY);
+
     await TestBed.configureTestingModule({
       imports: [Register],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        {
+          provide: RegisterUserApiService,
+          useValue: {
+            register: registerApiMock,
+          } satisfies Pick<RegisterUserApiService, 'register'>,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Register);
