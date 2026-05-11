@@ -33,7 +33,7 @@ export class GetPostService {
         console.log("IN GET POSTS; CLASS GET-POST-SERVICE")
         this.state.update((s) => ({ ...s, status: 'loading', errorMessage: null }));
         
-        this.api.getPosts()
+        this.api.getPosts(limit, offset)
         .pipe(
             tap( (response) => {
                 this.state.set({status: "success", data: response.items, errorMessage: null})
