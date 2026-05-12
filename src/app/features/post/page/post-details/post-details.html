@@ -37,10 +37,11 @@
         </p>
     </div>
 
-    <div class="mt-10 flex flex-wrap items-center gap-10 text-sm font-semibold uppercase tracking-wide text-gray-200">
-        <button type="button" class="transition hover:text-red-300">Like</button>
-        <button type="button" class="transition hover:text-red-300">Unlike</button>
-        <button type="button" class="transition hover:text-red-300">Comment</button>
+    <div class="mt-10 flex flex-wrap items-center gap-10">
+        <app-post-reaction-buttons postId="preview-post" [likes]="0" [unlikes]="0" variant="text" />
+        <button type="button" class="text-sm font-semibold uppercase tracking-wide text-gray-200 transition hover:text-red-300">
+            Comment
+        </button>
     </div>
 
     <section class="mt-8">

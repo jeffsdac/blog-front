@@ -15,23 +15,7 @@
         <div class="aspect-[16/7] w-full bg-black/60"></div>
     </div>
 
-    <div class="mt-5 flex items-center gap-3 text-sm">
-        <button
-            type="button"
-            class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 font-medium text-emerald-200 transition hover:border-emerald-300/40 hover:bg-emerald-400/15"
-        >
-            <span aria-hidden="true">👍</span>
-            <span>{{ likes }}</span>
-            <span class="sr-only">likes</span>
-        </button>
-
-        <button
-            type="button"
-            class="inline-flex items-center gap-2 rounded-full border border-rose-400/20 bg-rose-400/10 px-4 py-2 font-medium text-rose-200 transition hover:border-rose-300/40 hover:bg-rose-400/15"
-        >
-            <span aria-hidden="true">👎</span>
-            <span>{{ unlikes }}</span>
-            <span class="sr-only">unlikes</span>
-        </button>
+    <div class="mt-5">
+        <app-post-reaction-buttons [postId]="postId" [likes]="likes" [unlikes]="unlikes" />
     </div>
 </article>

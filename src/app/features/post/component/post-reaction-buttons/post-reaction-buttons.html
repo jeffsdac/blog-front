@@ -1,0 +1,35 @@
+@if (variant === 'text') {
+    <div class="flex flex-wrap items-center gap-10 text-sm font-semibold uppercase tracking-wide text-gray-200">
+        <button type="button" class="inline-flex items-center gap-2 transition hover:text-red-300" (click)="like($event)">
+            <span>Like</span>
+            <span class="text-xs text-gray-500">{{ likes }}</span>
+        </button>
+
+        <button type="button" class="inline-flex items-center gap-2 transition hover:text-red-300" (click)="unlike($event)">
+            <span>Unlike</span>
+            <span class="text-xs text-gray-500">{{ unlikes }}</span>
+        </button>
+    </div>
+} @else {
+    <div class="flex items-center gap-3 text-sm">
+        <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 font-medium text-emerald-200 transition hover:border-emerald-300/40 hover:bg-emerald-400/15"
+            (click)="like($event)"
+        >
+            <span aria-hidden="true">👍</span>
+            <span>{{ likes }}</span>
+            <span class="sr-only">likes</span>
+        </button>
+
+        <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-full border border-rose-400/20 bg-rose-400/10 px-4 py-2 font-medium text-rose-200 transition hover:border-rose-300/40 hover:bg-rose-400/15"
+            (click)="unlike($event)"
+        >
+            <span aria-hidden="true">👎</span>
+            <span>{{ unlikes }}</span>
+            <span class="sr-only">unlikes</span>
+        </button>
+    </div>
+}

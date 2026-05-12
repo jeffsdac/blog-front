@@ -63,6 +63,7 @@
                 [attr.aria-label]="'Abrir post ' + post.title"
             >
                 <app-post-card
+                    [postId]="post.id"
                     [title]="post.title"
                     [content]="post.content"
                     [likes]="post.likeVotes"
