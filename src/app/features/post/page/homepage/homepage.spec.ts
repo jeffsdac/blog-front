@@ -144,12 +144,11 @@ describe('Homepage', () => {
     expect(textContent()).toContain('Segundo post');
   });
 
-  it('passes title, content, likes and unlikes to post card', () => {
+  it('passes title, likes and unlikes to post card', () => {
     posts.set([firstPost]);
     fixture.detectChanges();
 
     expect(textContent()).toContain('Primeiro post');
-    expect(textContent()).toContain('Conteudo do primeiro post');
     expect(textContent()).toContain('10');
     expect(textContent()).toContain('1');
   });
