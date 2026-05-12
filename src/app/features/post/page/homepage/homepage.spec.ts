@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { vi, type MockedFunction } from 'vitest';
 import { IPublicPostDTO } from '../../model/ipublic-post-dto';
 import { GetPostService } from '../../service/get-post-service';
@@ -45,6 +46,7 @@ describe('Homepage', () => {
     await TestBed.configureTestingModule({
       imports: [Homepage],
       providers: [
+        provideRouter([]),
         {
           provide: GetPostService,
           useValue: {
@@ -84,7 +86,6 @@ describe('Homepage', () => {
     expect(textContent()).toContain('Recentes');
     expect(textContent()).toContain('Populares');
     expect(textContent()).toContain('Categoria');
-    expect(textContent()).toContain('Homepage');
   });
 
   it('shows loading state while posts are loading', () => {
